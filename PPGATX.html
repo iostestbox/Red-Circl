@@ -719,7 +719,7 @@
     // 3. Paste that URL into GOOGLE_SHEET_ENDPOINT below.
     // 4. Uncomment the fetch() block inside handleSubmit().
     // -----------------------------------------------------------------
-    const GOOGLE_SHEET_ENDPOINT = ""; // <-- paste Apps Script Web App URL here later
+    const GOOGLE_SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbxzUyeLhre_GRvX1f3YaZ7oqyvW5tfx4XtHsjemBnWADbb1ql9Sb9Rghs5dRVBLHzyw0Q/exec";
 
     const form = document.getElementById('rsvp-form');
     const msgBox = document.getElementById('form-msg');
@@ -757,16 +757,14 @@
       msgBox.className = 'form-msg';
 
       try{
-        // Uncomment this block once GOOGLE_SHEET_ENDPOINT is set:
-        //
-        // await fetch(GOOGLE_SHEET_ENDPOINT, {
-        //   method: 'POST',
-        //   mode: 'no-cors',
-        //   headers: { 'Content-Type': 'application/json' },
-        //   body: JSON.stringify(payload)
-        // });
-
-        console.log('RSVP submitted (not yet connected to a sheet):', payload);
+        await fetch(GOOGLE_SHEET_ENDPOINT, {
+          method: 'POST',
+          mode: 'no-cors', // Apps Script doesn't return CORS headers, so the
+                            // response itself is opaque — we can't read success/
+                            // failure from it. The row still gets appended.
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
 
         showMessage("You're on the list. We'll be in touch with details soon.", 'success');
         form.reset();
