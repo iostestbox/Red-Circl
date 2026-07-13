@@ -128,6 +128,32 @@
   .hero{
     padding:88px 0 70px;
     position:relative;
+    overflow:hidden;
+  }
+  .hero-media{
+    position:absolute;
+    inset:0;
+    z-index:0;
+  }
+  .hero-media img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    object-position:center 38%;
+    display:block;
+  }
+  /* Dark gradient over the photo — keeps headline/body text readable
+     regardless of what's happening in the image underneath it. */
+  .hero-overlay{
+    position:absolute;
+    inset:0;
+    background:
+      linear-gradient(180deg, rgba(8,7,14,0.55) 0%, rgba(8,7,14,0.72) 40%, rgba(8,7,14,0.96) 100%),
+      radial-gradient(60% 45% at 18% 0%, rgba(255,61,110,0.20), transparent 60%);
+  }
+  .hero-inner{
+    position:relative;
+    z-index:2;
   }
   .hero-inner{
     display:grid;
@@ -212,7 +238,8 @@
   .details-grid{
     display:grid;
     grid-template-columns:repeat(4, 1fr);
-    padding:26px 0;
+    padding-top:26px;
+    padding-bottom:26px;
   }
   .detail-item{
     padding:0 20px;
@@ -474,7 +501,8 @@
     .details-grid{
       grid-template-columns:1fr;
       gap:0;
-      padding:4px 0;
+      padding-top:4px;
+      padding-bottom:4px;
     }
     .detail-item{
       border-left:none;
@@ -525,6 +553,13 @@
   </header>
 
   <section class="hero">
+    <div class="hero-media" aria-hidden="true">
+      <picture>
+        <source srcset="assets/hero-bg.webp" type="image/webp">
+        <img src="assets/hero-bg.jpg" alt="">
+      </picture>
+    </div>
+    <div class="hero-overlay" aria-hidden="true"></div>
     <div class="wrap hero-inner">
       <div>
         <p class="eyebrow">Austin, TX &nbsp;·&nbsp; Founders &amp; Funders</p>
